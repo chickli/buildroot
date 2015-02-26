@@ -1,0 +1,6 @@
+config BR2_PACKAGE_LIBCEDARX
+        bool "libcedarx"
+        help
+          Allwinner video processor support
+
+          http://linux-sunxi.org
