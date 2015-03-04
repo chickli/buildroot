@@ -24,15 +24,15 @@ NETWORK_MANAGER_CONF_ENV = \
 
 
 NETWORK_MANAGER_CONF_OPTS = \
-		--mandir=$(STAGING_DIR)/usr/man/ \
-		--disable-tests \
-		--disable-qt \
-		--disable-more-warnings \
-		--without-docs \
-		--with-crypto=gnutls \
-		--with-iptables=/usr/sbin/iptables \
-		--disable-ifupdown \
-		--disable-ifnet
+	--mandir=$(STAGING_DIR)/usr/man/ \
+	--disable-tests \
+	--disable-qt \
+	--disable-more-warnings \
+	--without-docs \
+	--with-crypto=gnutls \
+	--with-iptables=/usr/sbin/iptables \
+	--disable-ifupdown \
+	--disable-ifnet
 
 ifeq ($(BR2_PACKAGE_NETWORK_MANAGER_TUI),y)
 	NETWORK_MANAGER_DEPENDENCIES += newt
@@ -70,6 +70,19 @@ endif
 
 define NETWORK_MANAGER_INSTALL_INIT_SYSV
 	$(INSTALL) -m 0755 -D package/network-manager/S45network-manager $(TARGET_DIR)/etc/init.d/S45network-manager
+endef
+
+define NETWORK_MANAGER_INSTALL_INIT_SYSTEMD
+	mkdir -p $(TARGET_DIR)/etc/systemd/system/multi-user.target.wants
+
+	ln -sf /usr/lib/systemd/system/NetworkManager.service \
+		$(TARGET_DIR)/etc/systemd/system/dbus-org.freedesktop.NetworkManager.service
+
+	ln -sf /usr/lib/systemd/system/NetworkManager.service \
+		$(TARGET_DIR)/etc/systemd/system/multi-user.target.wants/NetworkManager.service
+
+	ln -sf /usr/lib/systemd/system/NetworkManager-dispatcher.service \
+		$(TARGET_DIR)/etc/systemd/system/dbus-org.freedesktop.nm-dispatcher.service
 endef
 
 $(eval $(autotools-package))

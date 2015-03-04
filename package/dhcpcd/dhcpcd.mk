@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-DHCPCD_VERSION = 6.6.4
+DHCPCD_VERSION = 6.6.7
 DHCPCD_SOURCE = dhcpcd-$(DHCPCD_VERSION).tar.bz2
 DHCPCD_SITE = http://roy.marples.name/downloads/dhcpcd
 DHCPCD_DEPENDENCIES = host-pkgconf
@@ -14,7 +14,7 @@ ifeq ($(BR2_INET_IPV6),)
 	DHCPCD_CONFIG_OPTS += --disable-ipv6
 endif
 
-ifeq ($(BR2_PREFER_STATIC_LIB),y)
+ifeq ($(BR2_STATIC_LIBS),y)
 	DHCPCD_CONFIG_OPTS += --enable-static
 endif
 

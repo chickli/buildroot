@@ -4,23 +4,18 @@
 #
 ################################################################################
 
-VLC_VERSION = 2.1.5
-VLC_SITE = http://download.videolan.org/pub/videolan/vlc/$(VLC_VERSION)
-VLC_SOURCE = vlc-$(VLC_VERSION).tar.xz
+VLC_VERSION = 2.0.5-cedarx-r0
+VLC_SITE = http://github.com/chickli/vlc/archive
+VLC_SOURCE = vlc-$(VLC_VERSION).tar.gz
 VLC_LICENSE = GPLv2+ LGPLv2.1+
 VLC_LICENSE_FILES = COPYING COPYING.LIB
 VLC_DEPENDENCIES = host-pkgconf
-VLC_AUTORECONF = YES
+VLC_AUTORECONF = NO
 
-# VLC defines two autoconf functions which are also defined by our own pkg.m4
-# from pkgconf. Unfortunately, they are defined in a different way: VLC adds
-# --enable- options, but pkg.m4 adds --with- options. To make sure we use
-# VLC's definition, rename these two functions.
 define VLC_OVERRIDE_PKG_M4
-	$(SED) 's/PKG_WITH_MODULES/VLC_PKG_WITH_MODULES/g' \
-		-e 's/PKG_HAVE_WITH_MODULES/VLC_PKG_HAVE_WITH_MODULES/g' \
-		$(@D)/configure.ac $(@D)/m4/with_pkg.m4
+    cd ${VLC_DIR}; ./bootstrap; echo ${VLC_VERSION} > src/revision.txt
 endef
+
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
 VLC_CONF_OPTS += \
@@ -36,23 +31,25 @@ VLC_CONF_OPTS += \
 	--disable-kate \
 	--disable-caca \
 	--disable-jack \
-	--disable-samplerate \
 	--disable-chromaprint \
 	--disable-goom \
 	--disable-projectm \
 	--disable-vsxu \
 	--disable-mtp \
-	--disable-opencv
-
-# Building static and shared doesn't work, so force static off.
-ifeq ($(BR2_PREFER_STATIC_LIB),)
-VLC_CONF_OPTS += --disable-static
-endif
+	--disable-opencv 
+        
 
 ifeq ($(BR2_POWERPC_CPU_HAS_ALTIVEC),y)
 VLC_CONF_OPTS += --enable-altivec
 else
 VLC_CONF_OPTS += --disable-altivec
+endif
+
+ifeq ($(BR2_PACKAGE_LIBCEDARX),y)
+VLC_CONF_OPTS += --enable-cedar
+VLC_DEPENDENCIES += libcedarx
+else
+VLC_CONF_OPTS += --disable-cedar
 endif
 
 ifeq ($(BR2_PACKAGE_ALSA_LIB),y)

@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-TVHEADEND_VERSION = fcd16fa0d835d7fd4f57c350ed8b76350440c68c
+TVHEADEND_VERSION = 7006b9fd88ce0cf54d59399df40fe4ee003c4180
 TVHEADEND_SITE = $(call github,tvheadend,tvheadend,$(TVHEADEND_VERSION))
 TVHEADEND_LICENSE = GPLv3+
 TVHEADEND_LICENSE_FILES = LICENSE.md
@@ -32,9 +32,10 @@ ifeq ($(BR2_PACKAGE_LIBICONV),y)
 TVHEADEND_DEPENDENCIES += libiconv
 endif
 
+TVHEADEND_CFLAGS = $(TARGET_CFLAGS)
 ifeq ($(BR2_PACKAGE_LIBURIPARSER),y)
 TVHEADEND_DEPENDENCIES += liburiparser
-TVHEADEND_CONF_ENV += CFLAGS="$(TARGET_CFLAGS) $(if $(BR2_USE_WCHAR),,-DURI_NO_UNICODE)"
+TVHEADEND_CFLAGS += $(if $(BR2_USE_WCHAR),,-DURI_NO_UNICODE)
 endif
 
 TVHEADEND_DEPENDENCIES += dtv-scan-tables
@@ -43,20 +44,26 @@ define TVHEADEND_CONFIGURE_CMDS
 	(cd $(@D);						\
 		$(TARGET_CONFIGURE_OPTS)			\
 		$(TARGET_CONFIGURE_ARGS)			\
-		$(TVHEADEND_CONF_ENV)				\
+		CFLAGS="$(TVHEADEND_CFLAGS)"			\
 		./configure					\
 			--prefix=/usr				\
 			--arch="$(ARCH)"			\
 			--cpu="$(BR2_GCC_TARGET_CPU)"		\
 			--python="$(HOST_DIR)/usr/bin/python"	\
-			--disable-dvbscan			\
+			--enable-dvbscan			\
 			--enable-bundle				\
 			--disable-libffmpeg_static		\
 			$(TVHEADEND_CONF_OPTS)			\
 	)
 endef
 
+# The tvheadend build system expects the transponder data to be present inside
+# its source tree. To prevent a downloaded initiated by the build system just
+# copy the data files in the right place and add the corresponding stamp file.
 define TVHEADEND_BUILD_CMDS
+	$(INSTALL) -d $(@D)/data/dvb-scan
+	cp -r $(TARGET_DIR)/usr/share/dvb/* $(@D)/data/dvb-scan/
+	touch $(@D)/data/dvb-scan/.stamp
 	$(MAKE) -C $(@D)
 endef
 
