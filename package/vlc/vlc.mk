@@ -19,6 +19,7 @@ endef
 VLC_POST_PATCH_HOOKS += VLC_OVERRIDE_PKG_M4
 
 VLC_CONF_OPTS += \
+        --enable-run-as-root \
 	--disable-a52 \
 	--disable-shout \
 	--disable-twolame \
