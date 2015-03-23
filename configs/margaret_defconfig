@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2015.02-rc3-00035-g90f7946 Configuration
+# Buildroot 2015.02-rc3-00039-g7e3b4d2 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 
@@ -549,9 +549,127 @@ BR2_PACKAGE_SUNXI_TOOLS=y
 # Other GUIs
 #
 # BR2_PACKAGE_EFL is not set
-# BR2_PACKAGE_QT is not set
+BR2_PACKAGE_QT=y
+BR2_PACKAGE_QT_EMBEDDED=y
+
+#
+# Qt standard (X11) not available (need X.org)
+#
+# BR2_PACKAGE_QT_DEBUG is not set
+# BR2_PACKAGE_QT_DEMOS is not set
+# BR2_PACKAGE_QT_TRANSLATION_FILES is not set
+# BR2_PACKAGE_QT_EXAMPLES is not set
+BR2_PACKAGE_QT_SHARED=y
+# BR2_PACKAGE_QT_STATIC is not set
+BR2_PACKAGE_QT_LICENSE_APPROVED=y
+BR2_PACKAGE_QT_CONFIG_FILE=""
+# BR2_PACKAGE_QT_QT3SUPPORT is not set
+BR2_PACKAGE_QT_GUI_MODULE=y
+
+#
+# Pixel depths
+#
+
+#
+# Deselecting each option leads to Qt's default (8,16,32)
+#
+# BR2_PACKAGE_QT_PIXEL_DEPTH_1 is not set
+# BR2_PACKAGE_QT_PIXEL_DEPTH_4 is not set
+# BR2_PACKAGE_QT_PIXEL_DEPTH_8 is not set
+# BR2_PACKAGE_QT_PIXEL_DEPTH_12 is not set
+# BR2_PACKAGE_QT_PIXEL_DEPTH_15 is not set
+BR2_PACKAGE_QT_PIXEL_DEPTH_16=y
+# BR2_PACKAGE_QT_PIXEL_DEPTH_18 is not set
+BR2_PACKAGE_QT_PIXEL_DEPTH_24=y
+BR2_PACKAGE_QT_PIXEL_DEPTH_32=y
+
+#
+# Fonts
+#
+BR2_PACKAGE_QT_FONT_MICRO=y
+BR2_PACKAGE_QT_FONT_FIXED=y
+BR2_PACKAGE_QT_FONT_HELVETICA=y
+# BR2_PACKAGE_QT_FONT_JAPANESE is not set
+# BR2_PACKAGE_QT_FONT_UNIFONT is not set
+# BR2_PACKAGE_QT_NOFREETYPE is not set
+BR2_PACKAGE_QT_QTFREETYPE=y
+# BR2_PACKAGE_QT_SYSTEMFREETYPE is not set
+# BR2_PACKAGE_QT_GIF is not set
+# BR2_PACKAGE_QT_LIBMNG is not set
+# BR2_PACKAGE_QT_NOJPEG is not set
+# BR2_PACKAGE_QT_SYSTEMJPEG is not set
+BR2_PACKAGE_QT_QTJPEG=y
+BR2_PACKAGE_QT_NOPNG=y
+# BR2_PACKAGE_QT_SYSTEMPNG is not set
+# BR2_PACKAGE_QT_QTPNG is not set
+BR2_PACKAGE_QT_NOTIFF=y
+# BR2_PACKAGE_QT_SYSTEMTIFF is not set
+# BR2_PACKAGE_QT_QTTIFF is not set
+BR2_PACKAGE_QT_QTZLIB=y
+# BR2_PACKAGE_QT_SYSTEMZLIB is not set
+# BR2_PACKAGE_QT_SQL_MODULE is not set
+
+#
+# Graphics drivers
+#
+BR2_PACKAGE_QT_GFX_LINUXFB=y
+# BR2_PACKAGE_QT_GFX_TRANSFORMED is not set
+# BR2_PACKAGE_QT_GFX_QVFB is not set
+# BR2_PACKAGE_QT_GFX_VNC is not set
+# BR2_PACKAGE_QT_GFX_MULTISCREEN is not set
+
+#
+# directfb Qt driver not available (need directfb)
+#
+
+#
+# Mouse drivers
+#
+BR2_PACKAGE_QT_MOUSE_PC=y
+BR2_PACKAGE_QT_MOUSE_LINUXTP=y
+BR2_PACKAGE_QT_MOUSE_LINUXINPUT=y
+# BR2_PACKAGE_QT_MOUSE_TSLIB is not set
+# BR2_PACKAGE_QT_MOUSE_QVFB is not set
+
+#
+# Mouse Options
+#
+# BR2_PACKAGE_QT_MOUSE_NO_QWS_CURSOR is not set
+
+#
+# Keyboard drivers
+#
+# BR2_PACKAGE_QT_KEYBOARD_TTY is not set
+# BR2_PACKAGE_QT_KEYBOARD_LINUXINPUT is not set
+# BR2_PACKAGE_QT_KEYBOARD_QVFB is not set
+
+#
+# Phonon module needs gstreamer
+#
+# BR2_PACKAGE_QT_DBUS is not set
+BR2_PACKAGE_QT_XML=y
+# BR2_PACKAGE_QT_XMLPATTERNS is not set
+# BR2_PACKAGE_QT_MULTIMEDIA is not set
+# BR2_PACKAGE_QT_SVG is not set
+BR2_PACKAGE_QT_NETWORK=y
+BR2_PACKAGE_QT_ARCH_SUPPORTS_WEBKIT=y
+# BR2_PACKAGE_QT_WEBKIT is not set
+# BR2_PACKAGE_QT_STL is not set
+# BR2_PACKAGE_QT_OPENSSL is not set
+BR2_PACKAGE_QT_ARCH_SUPPORTS_SCRIPT=y
+BR2_PACKAGE_QT_SCRIPT=y
+# BR2_PACKAGE_QT_SCRIPTTOOLS is not set
+# BR2_PACKAGE_QT_TEST is not set
 BR2_PACKAGE_QT5_JSCORE_AVAILABLE=y
-# BR2_PACKAGE_QT5 is not set
+
+#
+# QT libraries and helper libraries
+#
+# BR2_PACKAGE_GRANTLEE is not set
+# BR2_PACKAGE_QEXTSERIALPORT is not set
+# BR2_PACKAGE_QJSON is not set
+# BR2_PACKAGE_QTUIO is not set
+# BR2_PACKAGE_QWT is not set
 
 #
 # weston needs udev and a toolchain w/ threads, dynamic library, headers >= 3.0
