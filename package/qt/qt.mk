@@ -12,7 +12,7 @@
 ################################################################################
 
 QT_VERSION_MAJOR = 4.8
-QT_VERSION = $(QT_VERSION_MAJOR).6
+QT_VERSION = $(QT_VERSION_MAJOR).4
 QT_SOURCE = qt-everywhere-opensource-src-$(QT_VERSION).tar.gz
 QT_SITE = http://download.qt-project.org/official_releases/qt/$(QT_VERSION_MAJOR)/$(QT_VERSION)
 QT_DEPENDENCIES = host-pkgconf
@@ -310,7 +310,7 @@ QT_CONFIGURE_OPTS += -no-libtiff
 endif
 endif
 
-QT_FONTS = $(addprefix $(STAGING_DIR)/usr/lib/fonts/, $(addsuffix *.qpf, \
+QT_FONTS = $(addprefix $(STAGING_DIR)/lib/fonts/, $(addsuffix *.qpf, \
 	   $(if $(BR2_PACKAGE_QT_FONT_MICRO),micro) \
 	   $(if $(BR2_PACKAGE_QT_FONT_FIXED),fixed) \
 	   $(if $(BR2_PACKAGE_QT_FONT_HELVETICA),helvetica) \
@@ -634,14 +634,14 @@ endef
 define QT_INSTALL_STAGING_CMDS
 	$(MAKE) -C $(@D) install
 	mkdir -p $(HOST_DIR)/usr/bin
-	mv $(addprefix $(STAGING_DIR)/usr/bin/,$(QT_HOST_PROGRAMS)) $(HOST_DIR)/usr/bin
-	ln -sf $(STAGING_DIR)/usr/mkspecs $(HOST_DIR)/usr/mkspecs
+	mv $(addprefix $(STAGING_DIR)/bin/,$(QT_HOST_PROGRAMS)) $(HOST_DIR)/usr/bin
+	ln -sf $(STAGING_DIR)/mkspecs $(HOST_DIR)/usr/mkspecs
 	$(QT_INSTALL_QT_CONF)
 	for i in moc uic rcc lupdate lrelease ; do \
 		$(SED) "s,^$${i}_location=.*,$${i}_location=$(HOST_DIR)/usr/bin/$${i}," \
-			$(STAGING_DIR)/usr/lib/pkgconfig/Qt*.pc ; \
+			$(STAGING_DIR)/lib/pkgconfig/Qt*.pc ; \
 	done
-	$(SED) "s,$(STAGING_DIR)/,,g" $(STAGING_DIR)/usr/lib/pkgconfig/Qt*.pc
+	$(SED) "s,$(STAGING_DIR)/,,g" $(STAGING_DIR)/lib/pkgconfig/Qt*.pc
 endef
 
 # Library installation
@@ -649,24 +649,24 @@ ifeq ($(BR2_PACKAGE_QT_SHARED),y)
 define QT_INSTALL_TARGET_LIBS
 	mkdir -p $(TARGET_DIR)/usr/lib
 	for lib in $(QT_INSTALL_LIBS); do \
-		cp -dpf $(STAGING_DIR)/usr/lib/lib$${lib}.so.* $(TARGET_DIR)/usr/lib ; \
+		cp -dpf $(STAGING_DIR)/lib/lib$${lib}.so.* $(TARGET_DIR)/usr/lib ; \
 	done
 endef
 endif
 
 # Plugin installation
 define QT_INSTALL_TARGET_PLUGINS
-	if [ -d $(STAGING_DIR)/usr/lib/qt/plugins/ ] ; then \
+	if [ -d $(STAGING_DIR)/lib/qt/plugins/ ] ; then \
 		mkdir -p $(TARGET_DIR)/usr/lib/qt/plugins ; \
-		cp -dpfr $(STAGING_DIR)/usr/lib/qt/plugins/* $(TARGET_DIR)/usr/lib/qt/plugins ; \
+		cp -dpfr $(STAGING_DIR)/lib/qt/plugins/* $(TARGET_DIR)/usr/lib/qt/plugins ; \
 	fi
 endef
 
 # Import installation
 define QT_INSTALL_TARGET_IMPORTS
-	if [ -d $(STAGING_DIR)/usr/lib/qt/imports/ ] ; then \
+	if [ -d $(STAGING_DIR)/lib/qt/imports/ ] ; then \
 		mkdir -p $(TARGET_DIR)/usr/lib/qt/imports ; \
-		cp -dpfr $(STAGING_DIR)/usr/lib/qt/imports/* $(TARGET_DIR)/usr/lib/qt/imports ; \
+		cp -dpfr $(STAGING_DIR)/lib/qt/imports/* $(TARGET_DIR)/usr/lib/qt/imports ; \
 	fi
 endef
 
@@ -682,7 +682,7 @@ endif
 ifeq ($(BR2_PACKAGE_QT_QTFREETYPE)$(BR2_PACKAGE_QT_SYSTEMFREETYPE),y)
 define QT_INSTALL_TARGET_FONTS_TTF
 	mkdir -p $(TARGET_DIR)/usr/lib/fonts
-	cp -dpf $(STAGING_DIR)/usr/lib/fonts/*.ttf $(TARGET_DIR)/usr/lib/fonts
+	cp -dpf $(STAGING_DIR)/lib/fonts/*.ttf $(TARGET_DIR)/usr/lib/fonts
 endef
 endif
 endif # BR2_PACKAGE_QT_EMBEDDED
@@ -698,9 +698,9 @@ endif
 
 ifeq ($(BR2_PACKAGE_QT_TRANSLATION_FILES),y)
 define QT_INSTALL_TARGET_TRANSLATIONS
-	if [ -d $(STAGING_DIR)/usr/share/qt/translations/ ] ; then \
+	if [ -d $(STAGING_DIR)/share/qt/translations/ ] ; then \
 		mkdir -p $(TARGET_DIR)/usr/share/qt/translations ; \
-		cp -dpfr $(STAGING_DIR)/usr/share/qt/translations/* $(TARGET_DIR)/usr/share/qt/translations ; \
+		cp -dpfr $(STAGING_DIR)/share/qt/translations/* $(TARGET_DIR)/usr/share/qt/translations ; \
 	fi
 endef
 endif
