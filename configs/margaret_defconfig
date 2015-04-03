@@ -1,6 +1,6 @@
 #
 # Automatically generated file; DO NOT EDIT.
-# Buildroot 2015.02-rc3-00039-g7e3b4d2 Configuration
+# Buildroot 2015.02-rc3-00040-g9b8d9f9 Configuration
 #
 BR2_HAVE_DOT_CONFIG=y
 
@@ -34,7 +34,7 @@ BR2_ENDIAN="LITTLE"
 BR2_GCC_TARGET_ABI="aapcs-linux"
 BR2_GCC_TARGET_CPU="cortex-a7"
 BR2_GCC_TARGET_FPU="vfpv4-d16"
-BR2_GCC_TARGET_FLOAT_ABI="softfp"
+BR2_GCC_TARGET_FLOAT_ABI="hard"
 BR2_GCC_TARGET_MODE="arm"
 BR2_ARCH_HAS_ATOMICS=y
 BR2_BINFMT_SUPPORTS_SHARED=y
@@ -63,9 +63,8 @@ BR2_cortex_a7=y
 # BR2_strongarm is not set
 # BR2_xscale is not set
 # BR2_iwmmxt is not set
-BR2_ARM_EABI=y
-# BR2_ARM_EABIHF is not set
-# BR2_ARM_SOFT_FLOAT is not set
+# BR2_ARM_EABI is not set
+BR2_ARM_EABIHF=y
 # BR2_ARM_FPU_VFPV2 is not set
 # BR2_ARM_FPU_VFPV3 is not set
 # BR2_ARM_FPU_VFPV3D16 is not set
