@@ -4,7 +4,7 @@
 #
 ################################################################################
 
-VLC_VERSION = 2.0.5-cedarx-r1
+VLC_VERSION = 2.0.5-cedarx-r2
 VLC_SITE = http://github.com/chickli/vlc/archive
 VLC_SOURCE = vlc-$(VLC_VERSION).tar.gz
 VLC_LICENSE = GPLv2+ LGPLv2.1+
