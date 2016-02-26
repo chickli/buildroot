@@ -2,7 +2,7 @@
 # libcedarx
 #
 
-LIBCEDARX_VERSION = 0.3
+LIBCEDARX_VERSION = 0.4
 LIBCEDARX_SITE = http://github.com/chickli/libcedarx/archive
 
 LIBCEDARX_INSTALL_STAGING = YES
