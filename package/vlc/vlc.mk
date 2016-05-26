@@ -37,7 +37,8 @@ VLC_CONF_OPTS += \
 	--disable-projectm \
 	--disable-vsxu \
 	--disable-mtp \
-	--disable-opencv 
+	--disable-opencv \
+        --enable-realrtsp
         
 
 ifeq ($(BR2_POWERPC_CPU_HAS_ALTIVEC),y)
